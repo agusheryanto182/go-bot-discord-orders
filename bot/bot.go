@@ -52,18 +52,14 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	if m.Content == "who" {
 		s.ChannelMessageSend(m.ChannelID, "i am suga waifu")
-	}
-
-	if m.Content == "help" {
+	} else if m.Content == "help" {
 		helpMessage := "- who : tell about me\n" +
 			"- help : see the command\n" +
 			"- earthquake information : see the latest earthquake information \n" +
 			"- write a place if you want to know the weather temperature : ex -> Sukabumi\n"
 
 		s.ChannelMessageSend(m.ChannelID, helpMessage)
-	}
-
-	if m.Content != "" && m.Content != "help" && m.Content != "who" && m.Content != "earthquake information" {
+	} else if m.Content != "" && m.Content != "help" && m.Content != "who" && m.Content != "earthquake information" {
 		data, err := query(m.Content)
 		if err != nil {
 			fmt.Println(err)
@@ -78,9 +74,7 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		message := "Lokasi : " + name + "\n" + "Temperatur : " + celciusStr + " °C" + "\n"
 
 		s.ChannelMessageSend(m.ChannelID, message)
-	}
-
-	if m.Content == "earthquake information" {
+	} else if m.Content == "earthquake information" {
 		data, err := getGempa()
 		if err != nil {
 			fmt.Println(err.Error())
